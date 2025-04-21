@@ -1,0 +1,51 @@
+services:
+
+  cassandra:
+    image: cassandra:4.1
+    container_name: cassandra
+    ports:
+      - "9042:9042"
+    environment:
+      CASSANDRA_CLUSTER_NAME: "NoSQLCluster"
+    volumes:
+      - cassandra_data:/var/lib/cassandra
+    healthcheck:
+      test: ["CMD", "bash", "-c", "until cqlsh -e 'DESCRIBE KEYSPACES'; do sleep 5; done"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+
+  productservice:
+    build: ./ProductService
+    ports:
+      - "5001:80"
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+
+  orderservice:
+    build: ./OrderService
+    ports:
+      - "5002:80"
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+
+  apigateway:
+    build: ./ApiGateway
+    ports:
+      - "5000:80"
+    depends_on:
+      cassandra:
+        condition: service_healthy
+      productservice:
+        condition: service_started
+      orderservice:
+        condition: service_started
+
+volumes:
+  cassandra_data:
