@@ -10,6 +10,11 @@ jobs:
   build-and-test:
     runs-on: self-hosted
 
+    # Force toutes les commandes à s'exécuter sous PowerShell
+    defaults:
+      run:
+        shell: powershell
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -20,9 +25,11 @@ jobs:
         with:
           dotnet-version: '7.0.x'
 
-
       - name: Restore dependencies
-        run: dotnet restore
+        run: |
+          # Désactive la policy PowerShell pour cette session
+          Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+          dotnet restore
 
       - name: Build solution
         run: dotnet build --no-restore
