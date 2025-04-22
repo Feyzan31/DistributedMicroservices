@@ -35,18 +35,19 @@ jobs:
           docker build -t $REGISTRY/$NAMESPACE/apigateway:latest ./ApiGateway
           docker push $REGISTRY/$NAMESPACE/apigateway:latest
 
-  deploy:
+    deploy:
     needs: build-and-push
-    runs-on: self-hosted  
+    runs-on: self-hosted
+    defaults:
+      run:
+        shell: powershell
     steps:
       - uses: actions/checkout@v4
 
-      - name: Pull & Deploy with Docker Compose (PowerShell workaround)
-        shell: pwsh
+      - name: Pull & Deploy with Docker Compose
         run: |
           Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-
           cd $env:GITHUB_WORKSPACE
-
           docker-compose pull
           docker-compose up -d
+
