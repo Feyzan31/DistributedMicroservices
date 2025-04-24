@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "uSPSXFXE48VvAfWxSoZSjqqM93kD8f3I4gQ1CIw/lZs=",
+  "Source": "OrderService-SQL",
+  "BasePath": "_content/OrderService-SQL",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

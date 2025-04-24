@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productservice-sql
+  namespace: distributed-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: productservice-sql
+  template:
+    metadata:
+      labels:
+        app: productservice-sql
+    spec:
+      containers:
+        - name: productservice-sql
+          image: distributedmicroservices-productservice-sql:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+            - name: ConnectionStrings__DefaultConnection
+              value: "Host=postgres;Port=5432;Database=microservices_db;Username=ms_user;Password=ms_pass"
+          ports:
+            - containerPort: 80

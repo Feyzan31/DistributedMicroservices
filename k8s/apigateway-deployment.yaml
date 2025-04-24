@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apigateway
+  namespace: distributed-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apigateway
+  template:
+    metadata:
+      labels:
+        app: apigateway
+    spec:
+      containers:
+        - name: apigateway
+          image: distributedmicroservices-apigateway:latest
+          volumeMounts:
+            - name: config
+              mountPath: /app/ocelot.json
+              subPath: ocelot.json
+      volumes:
+        - name: config
+          configMap:
+            name: apigateway-config

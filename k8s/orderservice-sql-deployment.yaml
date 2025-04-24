@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orderservice-sql
+  namespace: distributed-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orderservice-sql
+  template:
+    metadata:
+      labels:
+        app: orderservice-sql
+    spec:
+      containers:
+        - name: orderservice-sql
+          image: distributedmicroservices-orderservice-sql:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+            - name: ConnectionStrings__DefaultConnection
+              value: "Host=postgres;Port=5432;Database=microservices_db;Username=ms_user;Password=ms_pass"
+          ports:
+            - containerPort: 80

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: distributed-microservices
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:14
+          env:
+            - name: POSTGRES_DB
+              value: "microservices_db"
+            - name: POSTGRES_USER
+              value: "ms_user"
+            - name: POSTGRES_PASSWORD
+              value: "ms_pass"
+          ports:
+            - containerPort: 5432
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "ms_user", "-d", "microservices_db"]
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 2

@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apigateway-config
+  namespace: distributed-microservices
+data:
+  ocelot.json: |
+    {
+      "Routes": [
+        {
+          "DownstreamPathTemplate": "/api/products",
+          "DownstreamScheme": "http",
+          "DownstreamHostAndPorts": [{ "Host": "productservice",    "Port": 80 }],
+          "UpstreamPathTemplate":   "/products",
+          "UpstreamHttpMethod":     [ "GET", "POST" ],
+          "SwaggerKey": "ProductService-Cassandra"
+        },
+        {
+          "DownstreamPathTemplate": "/api/orders",
+          "DownstreamScheme": "http",
+          "DownstreamHostAndPorts": [{ "Host": "orderservice",     "Port": 80 }],
+          "UpstreamPathTemplate":   "/orders",
+          "UpstreamHttpMethod":     [ "GET", "POST" ],
+          "SwaggerKey": "OrderService-Cassandra"
+        },
+
+        {
+          "DownstreamPathTemplate": "/api/products",
+          "DownstreamScheme": "http",
+          "DownstreamHostAndPorts": [{ "Host": "productservice-sql", "Port": 80 }],
+          "UpstreamPathTemplate":   "/sql/products",
+          "UpstreamHttpMethod":     [ "GET", "POST" ],
+          "SwaggerKey": "ProductService-SQL"
+        },
+        {
+          "DownstreamPathTemplate": "/api/orders",
+          "DownstreamScheme": "http",
+          "DownstreamHostAndPorts": [{ "Host": "orderservice-sql",  "Port": 80 }],
+          "UpstreamPathTemplate":   "/sql/orders",
+          "UpstreamHttpMethod":     [ "GET", "POST" ],
+          "SwaggerKey": "OrderService-SQL"
+        }
+      ],
+
+      "SwaggerEndPoints": [
+        {
+          "Key": "ProductService-Cassandra",
+          "Config": [{ "Name":"ProductService (Cassandra)", "Version":"v1", "Url":"http://productservice/swagger/v1/swagger.json" }]
+        },
+        {
+          "Key": "OrderService-Cassandra",
+          "Config": [{ "Name":"OrderService (Cassandra)",  "Version":"v1", "Url":"http://orderservice/swagger/v1/swagger.json" }]
+        },
+
+
+        {
+          "Key": "ProductService-SQL",
+          "Config": [{ "Name":"ProductService (SQL)",       "Version":"v2", "Url":"http://productservice-sql/swagger/v2/swagger.json" }]
+        },
+        {
+          "Key": "OrderService-SQL",
+          "Config": [{ "Name":"OrderService (SQL)",         "Version":"v2", "Url":"http://orderservice-sql/swagger/v2/swagger.json" }]
+        }
+      ],
+
+      "GlobalConfiguration": {
+        "BaseUrl": "http://localhost:5000"
+      }
+    }

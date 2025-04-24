@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "4dcpmtiCX5iG75hTwyEIHTYCj2AC3YkX6Z5127/CF28=",
+  "Source": "ProductService-SQL",
+  "BasePath": "_content/ProductService-SQL",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

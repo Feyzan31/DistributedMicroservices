@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\NoSQL\\DistributedMicroservices\\ApiGateway\\ApiGateway.csproj": {}
+    "D:\\NoSQL\\Project\\DistributedMicroservices\\ApiGateway\\ApiGateway.csproj": {}
   },
   "projects": {
-    "D:\\NoSQL\\DistributedMicroservices\\ApiGateway\\ApiGateway.csproj": {
+    "D:\\NoSQL\\Project\\DistributedMicroservices\\ApiGateway\\ApiGateway.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\NoSQL\\DistributedMicroservices\\ApiGateway\\ApiGateway.csproj",
+        "projectUniqueName": "D:\\NoSQL\\Project\\DistributedMicroservices\\ApiGateway\\ApiGateway.csproj",
         "projectName": "ApiGateway",
-        "projectPath": "D:\\NoSQL\\DistributedMicroservices\\ApiGateway\\ApiGateway.csproj",
+        "projectPath": "D:\\NoSQL\\Project\\DistributedMicroservices\\ApiGateway\\ApiGateway.csproj",
         "packagesPath": "C:\\Users\\nils_\\.nuget\\packages\\",
-        "outputPath": "D:\\NoSQL\\DistributedMicroservices\\ApiGateway\\obj\\",
+        "outputPath": "D:\\NoSQL\\Project\\DistributedMicroservices\\ApiGateway\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -38,13 +38,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net7.0": {
@@ -78,24 +72,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[7.0.20, 7.0.20]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -104,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.410\\RuntimeIdentifierGraph.json"
         }
       }
     }

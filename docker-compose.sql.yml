@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14
+    container_name: postgres_sql
+    environment:
+      POSTGRES_DB:       microservices_db
+      POSTGRES_USER:     ms_user
+      POSTGRES_PASSWORD: ms_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "ms_user", "-d", "microservices_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  productservice-sql:
+    build: ./ProductService-SQL
+    container_name: productservice_sql
+    ports:
+      - "5001:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    depends_on:
+      postgres:
+        condition: service_healthy
+  
+  orderservice-sql:
+    build: ./OrderService-SQL
+    container_name: orderservice_sql
+    ports:
+      - "5002:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    depends_on:
+      postgres:
+        condition: service_healthy
+  
+  apigateway:
+    build: ./ApiGateway
+    container_name: apigateway_sql
+    ports:
+      - "5000:80"
+    depends_on:
+      productservice-sql:
+        condition: service_started
+      orderservice-sql:
+        condition: service_started
+    # (optionnel) si tu veux passer explicitement l'env dev :
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+volumes:
+  postgres_data:
